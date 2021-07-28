@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
 import Board from "./Board";
-import { calculateWinner } from "./helpers";
+import { calculateWinner } from "./Helpers";
+import History from "./History";
 import "./Styles/root.scss";
 
 function App() {
@@ -14,16 +15,13 @@ function App() {
 
   let current = history[currentMove];
 
-  console.log(history);
-
   let winner = "";
 
   winner = calculateWinner(current.board);
   const message = winner
     ? `winner is ${winner}`
     : `Next Player is ${current.isXNext ? "X" : "O"}`;
-  console.log(message);
-  // console.log(winner);
+
   function handleSquareClick(position) {
     if (current.board[position] || winner) return;
 
@@ -45,6 +43,12 @@ function App() {
     setCurrentMove((prev) => prev + 1);
   }
 
+  //function moveTo
+
+  function moveTo(move) {
+    console.log(move);
+    setCurrentMove(move);
+  }
   return (
     // for passing the numbers ,expressions or functions from one component to another
     // we use {} braces
@@ -56,6 +60,11 @@ function App() {
         board={current.board}
         handleSquareClick={handleSquareClick}
       ></Board>
+      <History
+        history={history}
+        moveTo={moveTo}
+        currentMove={currentMove}
+      ></History>
     </div>
   );
 }
