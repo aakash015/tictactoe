@@ -5,33 +5,44 @@ import { calculateWinner } from "./helpers";
 import "./Styles/root.scss";
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  // console.log("board rendered");
+  // const [board, setBoard] = useState(Array(9).fill(null));
+  const [history, setHistory] = useState([
+    { board: Array(9).fill(null), isXNext: true },
+  ]);
 
-  const [isXNext, setIsXNext] = useState(true);
+  const [currentMove, setCurrentMove] = useState(0);
+
+  let current = history[currentMove];
+
+  console.log(history);
 
   let winner = "";
 
-  winner = calculateWinner(board);
+  winner = calculateWinner(current.board);
   const message = winner
     ? `winner is ${winner}`
-    : `Next Player is ${isXNext ? "X" : "O"}`;
+    : `Next Player is ${current.isXNext ? "X" : "O"}`;
   console.log(message);
   // console.log(winner);
   function handleSquareClick(position) {
-    if (board[position] || winner) return;
+    if (current.board[position] || winner) return;
 
-    setBoard(function (prev) {
-      return prev.map((elem, pos) => {
-        if (position === pos && isXNext) {
-          setIsXNext(false);
-          return "X";
-        } else if (position === pos && !isXNext) {
-          setIsXNext(true);
-          return "O";
-        } else return elem;
+    setHistory(function (prev) {
+      const newBoard = prev[prev.length - 1].board.map((elem, pos) => {
+        if (pos === position) {
+          return prev[prev.length - 1].isXNext ? "X" : "O";
+        } else {
+          return elem;
+        }
+      });
+
+      return prev.concat({
+        board: newBoard,
+        isXNext: !prev[prev.length - 1].isXNext,
       });
     });
+
+    setCurrentMove((prev) => prev + 1);
   }
 
   return (
@@ -41,7 +52,10 @@ function App() {
     <div className="app">
       <h1>TIC TAC TOE </h1>
       <h2>{message}</h2>
-      <Board board={board} handleSquareClick={handleSquareClick}></Board>
+      <Board
+        board={current.board}
+        handleSquareClick={handleSquareClick}
+      ></Board>
     </div>
   );
 }
