@@ -5,7 +5,7 @@ function Square({ value, onClick }) {
   //the values from props passed
 
   // console.log(children);
-
+  // console.log("square rendered");
   return (
     <button type="button" className="square" onClick={onClick}>
       {value}
