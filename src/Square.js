@@ -5,8 +5,9 @@ function Square({ value, onClick,isWinningSquares }) {
   // console.log(isWinningSquares);
 
   return (
-    <button type="button" className="square" onClick={onClick}
-     style = {{fontWeight : isWinningSquares?'bold':'normal'}}
+    <button type="button"  onClick={onClick}
+
+     className = { `square ${isWinningSquares?'winning':''} ${value==='X'?'text-green':'text-orange'} `}
     >
       {value}
     </button>

@@ -10,13 +10,25 @@ const StatusMessage = ({ winner, current }) => {
   console.log(winner && `winner`);
 
   return (
-    <h2>
-      {winner ? `winner is ${winner}` : ""}
-      {!winner && !isFilled
-        ? `Next Player is ${current.isXNext ? "X" : "O"}`
-        : ""}
-      {!winner && isFilled ? "Match Tied" : ""}
-    </h2>
+    <div className="status-message">
+      {winner && 
+      <>
+      winner is <span className = { winner==='X'?'text-green':'text-orange'}>{winner}</span>
+      </>
+      }
+      
+      {!winner && !isFilled && 
+      <> 
+      Next Player is <span className = {current.isXNext?'text-green':'text-orange'}>
+        {current.isXNext?'X':'O'}</span>
+      </>
+     }
+{!winner&&isFilled &&
+   <>
+      <span>The match is Tied</span>
+   </>
+}
+    </div>
   );
 };
 

@@ -58,7 +58,7 @@ function App() {
     // we use {} braces
 
     <div className="app">
-      <h1>TIC TAC TOE </h1>
+      <h1>TIC <span className = "text-green">TAC</span> TOE </h1>
       <StatusMessage winner={winner} current={current} />
 
       <Board
@@ -66,14 +66,17 @@ function App() {
         handleSquareClick={handleSquareClick}
         winningSquares={winningSquares}
       ></Board>
-      <button type="button" onClick={reloadGame}>
+      <button type="button" onClick={reloadGame} className = {`btn-reset ${winner?'active':''}` }>
         Start New Game
       </button>
+
+      <h2 style={{fontWeight:'nomral'}}>Current Game History </h2>
       <History
         history={history}
         moveTo={moveTo}
         currentMove={currentMove}
       ></History>
+      <div className="bg-balls"></div>
     </div>
   );
 }
