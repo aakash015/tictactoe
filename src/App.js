@@ -16,9 +16,7 @@ function App() {
 
   let current = history[currentMove];
 
-  let winner = "";
-
-  winner = calculateWinner(current.board);
+  let { winner, winningSquares } = calculateWinner(current.board);
 
   function handleSquareClick(position) {
     if (current.board[position] || winner) return;
@@ -44,9 +42,17 @@ function App() {
   //function moveTo
 
   function moveTo(move) {
-    console.log(move);
+  
     setCurrentMove(move);
   }
+
+  function reloadGame() {
+    setHistory([{ board: Array(9).fill(null), isXNext: true }]);
+  
+
+    setCurrentMove(0);
+  }
+
   return (
     // for passing the numbers ,expressions or functions from one component to another
     // we use {} braces
@@ -58,7 +64,11 @@ function App() {
       <Board
         board={current.board}
         handleSquareClick={handleSquareClick}
+        winningSquares={winningSquares}
       ></Board>
+      <button type="button" onClick={reloadGame}>
+        Start New Game
+      </button>
       <History
         history={history}
         moveTo={moveTo}

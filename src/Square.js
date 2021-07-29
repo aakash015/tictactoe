@@ -1,13 +1,13 @@
 import React from "react";
 
-function Square({ value, onClick }) {
-  // the curly braces are just destructring
-  //the values from props passed
+function Square({ value, onClick,isWinningSquares }) {
+  
+  // console.log(isWinningSquares);
 
-  // console.log(children);
-  // console.log("square rendered");
   return (
-    <button type="button" className="square" onClick={onClick}>
+    <button type="button" className="square" onClick={onClick}
+     style = {{fontWeight : isWinningSquares?'bold':'normal'}}
+    >
       {value}
     </button>
   );

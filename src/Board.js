@@ -3,14 +3,16 @@ import Square from "./Square";
 
 // inorder to keep track we need to use states
 
-const Board = ({ board, handleSquareClick }) => {
+const Board = ({ board, handleSquareClick, winningSquares }) => {
   function renderSquare(position) {
+    let isWinningSquares = winningSquares.includes(position);
     return (
       <Square
         value={board[position]}
         onClick={() => {
           handleSquareClick(position);
         }}
+        isWinningSquares = {isWinningSquares}
       />
     );
   }
